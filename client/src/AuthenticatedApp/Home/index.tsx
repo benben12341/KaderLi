@@ -6,6 +6,7 @@ import { Stack, Fab, Box } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import ActivitiesCalendar from './ActivitiesCalendar';
 import AddActivity from './AddActivity';
+import { ActivityProvider } from '../../providers/ActivityProvider';
 
 const getUsers = async () => {
   try {
@@ -18,11 +19,24 @@ const getUsers = async () => {
   }
 };
 
+const getActivities = async () => {
+  try {
+    const response = await axios.get(
+      'https://activities-kaderim.apps.pnelwhem.eastus.aroapp.io/'
+    );
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const Home = () => {
   const [isAddActivityOpen, setIsAddActivityOpen] = useState(false);
 
-  useEffect(() => {
-    console.log(getUsers());
+  //@ts-ignore
+  useEffect(async () => {
+    console.log(await getUsers());
+    console.log(await getActivities());
   }, []);
 
   return (
@@ -39,10 +53,12 @@ const Home = () => {
         onClick={() => setIsAddActivityOpen(true)}>
         <Add />
       </Fab>
+      <ActivityProvider>
       <AddActivity
         open={isAddActivityOpen}
         handleClose={() => setIsAddActivityOpen(false)}
       />
+      </ActivityProvider>      
     </Box>
   );
 };

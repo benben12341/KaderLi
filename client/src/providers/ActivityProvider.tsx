@@ -8,14 +8,27 @@ export const ActivityProvider = ({ children }) => {
   const [role, setRole] = useState([]);
   const [location, setLocation] = useState([]);
   const [rank, setRank] = useState([]);
-  const [startTime, setStartTime] = useState<Dayjs | null>(
-    dayjs('2014-08-18T21:11:54')
+  const [startTime, setStartTime] = useState<Date | null>(
+    new Date()
   );
-  const [endTime, setEndTime] = useState<Dayjs | null>(
-    dayjs('2014-08-18T21:11:54')
+  const [endTime, setEndTime] = useState<Date | null>(
+    new Date()
   );
   const [description, setDescription] = useState("");
   const [type, setType] = useState(0);
+  const [name, setName] = useState("");
+
+  const reset = () => {
+    setGender([]);
+    setRole([]);
+    setLocation([]);
+    setRank([]);
+    setStartTime(new Date());
+    setEndTime(new Date());
+    setDescription('');
+    setType(0);
+    setName('');
+  }
 
   return (
     <ActivityContext.Provider
@@ -35,7 +48,10 @@ export const ActivityProvider = ({ children }) => {
         description,
         setDescription,
         type,
-        setType
+        setType,
+        name,
+        setName,
+        reset
       }}>
       {children}
     </ActivityContext.Provider>

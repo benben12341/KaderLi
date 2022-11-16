@@ -17,7 +17,7 @@ const AddActivity = ({ open, handleClose }: AddActivityProps) => {
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>הוספת תורנות</DialogTitle>
       <DialogContent>
-        <ActivitiesStepper />
+        <ActivitiesStepper onClose={handleClose} />
       </DialogContent>
     </Dialog>
   );

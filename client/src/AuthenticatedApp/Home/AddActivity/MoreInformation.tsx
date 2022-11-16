@@ -14,11 +14,17 @@ const MenuProps = {
 };
 
 const MoreInformation = () => {
-    const { description, setDescription } = useActivity();
-    const { type, setType } = useActivity();
-
+    const { description, setDescription, type, setType, name, setName } = useActivity();
+  
     return (
         <Stack spacing={3} direction={'column'} justifyContent='center' padding={3}>
+           <TextField
+                label='שם'
+                variant="outlined"
+                onChange={(event) => setName(event.target.value)}
+                defaultValue={name}
+            >
+            </TextField>
             <Select
                 label='סוג תורנות'
                 value={type}
