@@ -1,16 +1,7 @@
 import * as React from 'react';
-import { Theme, useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import {
-  Rank,
-  Role,
-  Gender,
-  Location
-} from '../../../../../common/types/enums';
 import { RoleConverter } from '../../../utils/converters/RoleConverter';
 import { GenderConverter } from '../../../utils/converters/GenderConverter';
 import { LocationConverter } from '../../../utils/converters/LocationConverter';
@@ -31,12 +22,16 @@ const MenuProps = {
 };
 
 const SelectGroup = () => {
-  const { activity, setActivity } = useActivity();
-  const theme = useTheme();
-  const [gender, setGender] = React.useState<string[]>([]);
-  const [location, setLocation] = React.useState<string[]>([]);
-  const [role, setRole] = React.useState<string[]>([]);
-  const [rank, setRank] = React.useState<string[]>([]);
+  const {
+    rank,
+    setRank,
+    location,
+    setLocation,
+    role,
+    setRole,
+    setGender,
+    gender
+  } = useActivity();
 
   const handleGenderChange = (event: SelectChangeEvent<typeof gender>) => {
     const {
@@ -46,8 +41,6 @@ const SelectGroup = () => {
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value
     );
-    // setActivity(prev => {...prev,value})
-    // console.log(activity)
   };
 
   const handleLocationChange = (event: SelectChangeEvent<typeof location>) => {
