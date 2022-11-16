@@ -10,9 +10,10 @@ import { Select } from '@mui/material';
 import SelectGroup from './SelectGroup';
 import { useActivity } from '../../../providers/ActivityProvider';
 import { ActivityProvider } from '../../../providers/ActivityProvider';
+import MoreInformation from './MoreInformation';
 
 const steps = ['בחירת תאריכים', 'בחירת קבוצה', 'מידע נוסף'];
-const componentsSetps = [<DatePicker />, <SelectGroup />];
+const componentsSetps = [<DatePicker />, <SelectGroup />, <MoreInformation />];
 
 export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { RoleConverter } from '../../../utils/converters/RoleConverter';
 import { GenderConverter } from '../../../utils/converters/GenderConverter';
@@ -9,6 +9,7 @@ import { RankConverter } from '../../../utils/converters/RankConverter';
 import { Stack } from '@mui/system';
 import { useActivity } from '../../../providers/ActivityProvider';
 import { InputLabel } from '@mui/material';
+import { MenuItem } from '@mui/material';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
