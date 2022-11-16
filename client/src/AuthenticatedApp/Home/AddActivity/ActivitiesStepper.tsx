@@ -11,20 +11,31 @@ import SelectGroup from './SelectGroup';
 import { useActivity } from '../../../providers/ActivityProvider';
 import { ActivityProvider } from '../../../providers/ActivityProvider';
 import MoreInformation from './MoreInformation';
-import {Activity} from '../../../../../common/types/models/Activity'
+import { Activity } from '../../../../../common/types/models/Activity';
 import { useAlert } from '../../../providers/Alert';
 
 const steps = ['בחירת תאריכים', 'בחירת קבוצה', 'מידע נוסף'];
 const componentsSetps = [<DatePicker />, <SelectGroup />, <MoreInformation />];
 
-export default function HorizontalNonLinearStepper({onClose}) {
-  const {reset, name, rank, loaction, role, gender, startTime, endTime, description, type} = useActivity();
+export default function HorizontalNonLinearStepper({ onClose }) {
+  const {
+    reset,
+    name,
+    rank,
+    loaction,
+    role,
+    gender,
+    startTime,
+    endTime,
+    description,
+    type
+  } = useActivity();
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState<{
     [k: number]: boolean;
   }>({});
 
-  const {success} = useAlert();
+  const { success } = useAlert();
 
   const totalSteps = () => {
     return steps.length;
@@ -61,23 +72,33 @@ export default function HorizontalNonLinearStepper({onClose}) {
   };
 
   const addActivity = (activity: Activity) => {
-    const activities = JSON.parse(localStorage.getItem('activities')?? '[]');
+    const activities = JSON.parse(localStorage.getItem('activities') ?? '[]');
     activities.push(activity);
-    localStorage.setItem('activities', JSON.stringify(activities)); 
-  }
+    localStorage.setItem('activities', JSON.stringify(activities));
+  };
   const handleSubmit = () => {
-    const activity = {name, rank, loaction, role, gender, startTime, endTime, description, type};
+    const activity = {
+      name,
+      rank,
+      loaction,
+      role,
+      gender,
+      startTime,
+      endTime,
+      description,
+      type
+    };
     addActivity(activity as unknown as Activity);
     handleReset();
     success('התורנות נוספה בהצלחה!');
     onClose();
-  }
+  };
 
   const handleComplete = () => {
     const newCompleted = completed;
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
-    if(isLastStep()) {
+    if (isLastStep()) {
       handleSubmit();
     }
     handleNext();
@@ -89,47 +110,44 @@ export default function HorizontalNonLinearStepper({onClose}) {
     reset();
   };
 
-  return (    
-      <Box sx={{ width: '100%' }}>
-        <Stepper nonLinear activeStep={activeStep}>
-          {steps.map((label, index) => (
-            <Step key={label} completed={completed[index]}>
-              <StepButton color='inherit' onClick={handleStep(index)}>
-                {label}
-              </StepButton>
-            </Step>
-          ))}
-        </Stepper>
-        <div>
-          { (
-            <React.Fragment>
-              {componentsSetps[activeStep]}
-              <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                <Button
-                  color='inherit'
-                  disabled={activeStep === 0}
-                  onClick={handleBack}
-                  sx={{ mr: 1 }}>
-                  חזור
-                </Button>
-                <Box sx={{ flex: '1 1 auto' }} />
-                <Button onClick={handleNext} sx={{ mr: 1 }}>
-                  המשך
-                </Button>
-                {activeStep !== steps.length &&
-                  (completed[activeStep] ? (
-                    componentsSetps[activeStep]
-                  ) : (
-                    <Button onClick={handleComplete}>
-                      {completedSteps() === totalSteps() - 1
-                        ? 'Finish'
-                        : 'Complete Step'}
-                    </Button>
-                  ))}
-              </Box>
-            </React.Fragment>
-          )}
-        </div>
-      </Box>
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Stepper nonLinear activeStep={activeStep}>
+        {steps.map((label, index) => (
+          <Step key={label} completed={completed[index]}>
+            <StepButton color='inherit' onClick={handleStep(index)}>
+              {label}
+            </StepButton>
+          </Step>
+        ))}
+      </Stepper>
+      <div>
+        {
+          <React.Fragment>
+            {componentsSetps[activeStep]}
+            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+              <Button
+                color='inherit'
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                sx={{ mr: 1 }}>
+                חזור
+              </Button>
+              <Box sx={{ flex: '1 1 auto' }} />
+              {activeStep !== steps.length &&
+                (completed[activeStep] ? (
+                  componentsSetps[activeStep]
+                ) : (
+                  <Button onClick={handleComplete}>
+                    {completedSteps() === totalSteps() - 1
+                      ? 'הוסף תורנות'
+                      : 'המשך'}
+                  </Button>
+                ))}
+            </Box>
+          </React.Fragment>
+        }
+      </div>
+    </Box>
   );
 }

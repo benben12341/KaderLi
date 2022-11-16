@@ -49,16 +49,16 @@ const Home = () => {
       <ActivitiesCalendar />
       <Fab
         color='primary'
-        sx={{ alignSelf: 'end' }}
+        sx={{ alignSelf: 'end', margin: '20px' }}
         onClick={() => setIsAddActivityOpen(true)}>
         <Add />
       </Fab>
       <ActivityProvider>
-      <AddActivity
-        open={isAddActivityOpen}
-        handleClose={() => setIsAddActivityOpen(false)}
-      />
-      </ActivityProvider>      
+        <AddActivity
+          open={isAddActivityOpen}
+          handleClose={() => setIsAddActivityOpen(false)}
+        />
+      </ActivityProvider>
     </Box>
   );
 };
